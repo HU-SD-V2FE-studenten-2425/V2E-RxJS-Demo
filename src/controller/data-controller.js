@@ -1,9 +1,12 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { dataService } from '../service/data-service.js';
+
+const TOTAL_TIME_INIT = 0;
 
 class DataController {
 
-  controllerData$ = new Observable((subscriber) => { this.subscriber = subscriber }) 
+  controllerData$ = new BehaviorSubject([]);
+  totalTime$ = new BehaviorSubject(TOTAL_TIME_INIT);
 
   constructor(dataServiceInstance) {
     this.dataService = dataServiceInstance;
@@ -20,13 +23,19 @@ class DataController {
     return this.dataService.add(item);
   }
 
-  getAll() {
-    return this.dataService.getAll();
-  }
-
   updateData(data) {
     console.log('Update data', data);
-    this.subscriber.next(data);
+    this.controllerData$.next(data);
+    this.calcTotalTime(data);
+  }
+
+  calcTotalTime(data) {
+    let tempTotal = 0;
+    data.forEach((element) => {
+      tempTotal += element.tijd;
+    });
+    this.totaltime = tempTotal;
+    this.totalTime$.next(this.totaltime);
   }
 
   error(event) {

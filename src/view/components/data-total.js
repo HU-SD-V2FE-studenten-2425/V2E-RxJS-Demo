@@ -15,13 +15,19 @@ export class DataTotal extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
-    let tempTotal = 0;
-    dataController.getAll().then((data) => { 
-      data.forEach(element => {
-        tempTotal += element.tijd;
-      });
-      this.totaltime = tempTotal;
-    });
+    const observer = {
+      next: this.updateData.bind(this)
+    }
+    this.subscription = dataController.totalTime$.subscribe(observer);
+  }
+
+  disconnectedCallback() {
+    this.subscription.unsubscribe();
+    super.disconnectedCallback();
+  }
+
+  updateData(data) {
+    this.totaltime = data;
   }
 
   render() {

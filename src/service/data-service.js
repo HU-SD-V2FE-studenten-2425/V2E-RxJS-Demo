@@ -17,26 +17,6 @@ class DataService {
 
       resolve(this.data);
     });
-
-    // stel dat het een fetch was naar een server
-    // const url = 'https://somewhereAtdatabase.com';
-    // const options = {
-    //   method: 'POST',
-    //   body: JSON.stringify(item),
-    // }
-    // return fetch(url, options)
-    //   .then((response) => response.parse())
-    //   .then((receivedData) => {
-    //     this.data = [...receivedData];
-    //     console.log('Data added:', item);
-    //     return this.data;
-    //   });
-  }
-
-  getAll() {
-    return new Promise((resolve) => {
-      resolve(this.data);
-    });
   }
 }
 
