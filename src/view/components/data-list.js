@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import { dataController } from '../../controller/data-controller';
 
 export class DataList extends LitElement {
   static properties = {
@@ -12,13 +13,13 @@ export class DataList extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.data = ['Item 1', 'Item 2', 'Item 3'];
+    dataController.getAll().then((data) => { this.data = data });
   }
 
   render() {
     return html`
       <ul>
-        ${this.data.map((item) => html`<li>${item}</li>`)}
+        ${this.data.map((item) => html`<li>${item.tijd}</li>`)}
       </ul>
     `;
   }
