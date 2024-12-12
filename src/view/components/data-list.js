@@ -13,7 +13,19 @@ export class DataList extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    dataController.getAll().then((data) => { this.data = data });
+    // dataController.getAll().then((data) => { this.data = data });
+
+    const observer = {
+      next: this.updateData.bind(this)
+    }
+    dataController.controllerData$.subscribe(observer);
+
+    // simulatie add item
+    dataController.addData({tijd: 20});
+  }
+
+  updateData(data) {
+    this.data = data;
   }
 
   render() {
