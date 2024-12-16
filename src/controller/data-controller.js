@@ -17,6 +17,7 @@ class DataController {
       complete: this.complete,
     }
     this.dataService.data$.subscribe(observer);
+    this.dataService.getAll();
   }
 
   addData(item) {
